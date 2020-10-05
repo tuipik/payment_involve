@@ -3,7 +3,7 @@ import pytest
 from app import create_app, db
 from app.config import TestingConfig, SHOP_ID
 from app.models import CurrencyType, Payment
-from utils.strategies import RubCurrencyStrategy, UsdCurrencyStrategy
+from app.utils.strategies import RubCurrencyStrategy, UsdCurrencyStrategy
 
 app = create_app(config_class=TestingConfig)
 
@@ -31,6 +31,17 @@ def create_payment(
         yield payment
         db.drop_all()
 
+def test_rub_data_creation(create_payment):
+    usd_data = UsdCurrencyStrategy.data_processor(create_payment)
+    equals = {
+        "payer_currency": CURRENCIES.USD.value,
+        "shop_amount": 100.0,
+        "shop_currency": CURRENCIES.USD.value,
+        "shop_id": SHOP_ID,
+        "shop_order_id": 1,
+    }
+    assert usd_data == equals
+
 
 def test_config():
     assert not create_app().testing
@@ -55,15 +66,3 @@ def test_hash_sign_creation():
     )
     rub_hash_sign = RubCurrencyStrategy.make_hashed_sign(data)
     assert rub_hash_sign["sign"] == equals_hash
-
-
-def test_rub_data_creation(create_payment):
-    usd_data = UsdCurrencyStrategy.data_processor(create_payment)
-    equals = {
-        "payer_currency": CURRENCIES.USD.value,
-        "shop_amount": 100.0,
-        "shop_currency": CURRENCIES.USD.value,
-        "shop_id": SHOP_ID,
-        "shop_order_id": 1,
-    }
-    assert usd_data == equals
