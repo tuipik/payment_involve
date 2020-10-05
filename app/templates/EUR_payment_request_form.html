@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Submit Payment{% endblock %}
+
+{% block headline %}Submit Payment{% endblock %}
+
+{% block payment_form %}
+    <form name="Pay" method="post" action=" https://pay.piastrix.com/ru/pay" accept-charset="UTF-8">
+
+        <input type="hidden" name="amount" value="{{ context.amount }}"/>
+        <input type="hidden" name="currency" value="{{ context.currency }}"/>
+        <input type="hidden" name="shop_id" value="{{ context.shop_id }}"/>
+        <input type="hidden" name="sign" value="{{ context.sign }}"/>
+        <input type="hidden" name="shop_order_id" value="{{ context.shop_order_id }}"/>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

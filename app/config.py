@@ -1,0 +1,25 @@
+class Config(object):
+    DEBUG = False
+    TESTING = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = "you-will-never-guess"
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///payment.db'
+
+
+class ProductionConfig(Config):
+    ENV = 'production'
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
+
+
+USD_PAYMENT_API_URL = "https://core.piastrix.com/bill/create"
+RUB_PAYMENT_API_URL = "https://core.piastrix.com/invoice/create"
+SHOP_SECRET_KEY = "SecretKey01"
+SHOP_ID = 5

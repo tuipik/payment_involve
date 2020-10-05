@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Submit Payment{% endblock %}
+
+{% block headline %}Submit Payment{% endblock %}
+
+{% block payment_form %}
+    <form action="{{ context.data.url }}" method="{{ context.data.method }}">
+        <input type="hidden" name="lang" id="lang" value={{ context.data.data.lang }}>
+        <input type="hidden" name="m_curorderid" id="m_curorderid" value={{ context.data.data.m_curorderid }}>
+        <input type="hidden" name="m_historyid" id="m_historyid" value={{ context.data.data.m_historyid }}>
+        <input type="hidden" name="m_historytm" id="m_historytm" value={{ context.data.data.m_historytm }}>
+        <input type="hidden" name="referer" id="referer" value={{ context.data.data.referer }}>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
