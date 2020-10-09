@@ -18,7 +18,7 @@ class Payment(db.Model):
     amount = db.Column(db.Float, nullable=False)
     currency = db.Column(ChoiceType(CurrencyType, impl=db.Integer()))
     description = db.Column(db.String(300), nullable=True)
-    created = db.Column(db.Integer, default=datetime.utcnow)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return f"<Payment {self.id}>"
