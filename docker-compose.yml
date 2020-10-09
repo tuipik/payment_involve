@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "flask run --host=0.0.0.0"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=app
+      - DB_USER=postgres
+      - DB_PASS=secretpassword
+      - FLASK_APP=main.py
+      - FLASK_ENV=development
+    depends_on:
+      - db
+
+  db:
+    image: postgres:10-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secretpassword
